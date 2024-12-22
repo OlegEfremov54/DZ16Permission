@@ -5,16 +5,19 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.dz16permission.databinding.ActivityContactsBinding
 
 class ContactsActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityContactsBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_contacts)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+
+        binding = ActivityContactsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        val adapter = ContactAdapter(Contact.list)
+        binding.recyclerViewRV.adapter = adapter
+        setSupportActionBar(binding.toolbarContact)
     }
 }
