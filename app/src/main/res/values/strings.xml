@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">DZ16Permission</string>
+    <string name="infoStr">Информация о приложении</string>
+    <string name="exit">Выход из приложения</string>
+    <string name="camera_btn">Разрешение на камеру</string>
+    <string name="contacts_btn">Разрешение на контакты</string>
+    <string name="hello_world">Приложение «Открытый доступ».</string>
+    <string name="contact_name_tv">Имя</string>
+    <string name="contact_phone_tv">Телефон</string>
+</resources>
