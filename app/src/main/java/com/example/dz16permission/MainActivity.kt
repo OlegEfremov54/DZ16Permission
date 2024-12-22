@@ -4,11 +4,12 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.dz16permission.databinding.ActivityMainBinding
+import android.Manifest
+import android.content.Intent
+import androidx.activity.result.contract.ActivityResultContracts
+import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -19,17 +20,47 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        var toolbarShop = binding.toolbarMain
-        setSupportActionBar(toolbarShop)
+        //Тулбар
+        var toolbarMain = binding.toolbarMain
+        setSupportActionBar(toolbarMain)
         title = " Открытый доступ"
-        toolbarShop.subtitle = "  Версия 1.Главная страница"
-        toolbarShop.setLogo(R.drawable.pleer)
+        toolbarMain.subtitle = "  Версия 1.Главная страница"
+        toolbarMain.setLogo(R.drawable.pleer)
+        //Отработка нажатия клавиши
+        binding.cameraBtn.setOnClickListener {
+            val permission = Manifest.permission.CAMERA
+            permissionLauncherCamera.launch(permission)
 
-
-
+        }
+        binding.contactsBtn.setOnClickListener {
+            val permission = Manifest.permission.READ_CONTACTS
+            permissionLauncherContacts.launch(permission)
+        }
+    }
+    //Запрос Исключений и Интент, переход на другие активити
+    private val permissionLauncherContacts = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted) {
+            val intent = Intent(this, ContactsActivity::class.java)
+            startActivity(intent)
+        } else {
+            Snackbar.make(binding.root, "Разрешения не предоставлены", Snackbar.LENGTH_LONG).show()
+        }
     }
 
+    private val permissionLauncherCamera = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted) {
+            val intent = Intent(this, CameraActivity::class.java)
+            startActivity(intent)
+        } else {
+            Snackbar.make(binding.root, "Разрешения не предоставлены", Snackbar.LENGTH_LONG).show()
+        }
+    }
+
+    //Меню
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu,menu)
         return true

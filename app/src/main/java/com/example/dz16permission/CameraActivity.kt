@@ -4,40 +4,28 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.dz16permission.databinding.ActivityContactsBinding
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import com.example.dz16permission.databinding.ActivityCameraBinding
 
-class ContactsActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityContactsBinding
-
+class CameraActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        binding = ActivityContactsBinding.inflate(layoutInflater)
+        val binding = ActivityCameraBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        var toolbarCamera= binding.toolbarCamera
+        setSupportActionBar(toolbarCamera)
 
-        //Адаптер
-        val adapter = ContactAdapter(Contact.list)
-
-        //Запускаеm менеджер
-        var recyclerViewRV = binding.recyclerViewRV
-        recyclerViewRV.layoutManager = LinearLayoutManager(this)
-        binding.recyclerViewRV.adapter = adapter
-
-         //Тулбар
-        var toolbarContact= binding.toolbarContact
-        setSupportActionBar(toolbarContact)
-
-        setSupportActionBar(toolbarContact)
+        setSupportActionBar(toolbarCamera)
         title = " Открытый доступ"
-        toolbarContact.subtitle = "  Версия 1.Страница контактов"
-        toolbarContact.setLogo(R.drawable.pleer)
+        toolbarCamera.subtitle = "  Версия 1.Страница камеры"
+        toolbarCamera.setLogo(R.drawable.pleer)
+
 
     }
 
-    //Инициализация меню
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu,menu)
         return true
